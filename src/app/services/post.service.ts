@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 // Libraries
-import { Observable, iif, of, tap } from 'rxjs';
+import { Observable, iif, of } from 'rxjs';
 
 // Models
 import { Post } from '../models';
