@@ -7,9 +7,10 @@ import { PostsRoutingModule } from './posts-routing.module';
 
 // Components
 import { PostsComponent } from './posts.component';
+import { AngularMaterialModule } from 'src/app/shared';
 
 @NgModule({
   declarations: [PostsComponent],
-  imports: [CommonModule, PostsRoutingModule],
+  imports: [CommonModule, PostsRoutingModule, AngularMaterialModule],
 })
 export class PostsModule {}

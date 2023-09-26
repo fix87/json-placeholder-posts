@@ -30,12 +30,12 @@ export class CommentService {
     );
   }
 
-  public getComment(id: number): Observable<Comment | undefined> {
+  public getComment(commentId: number): Observable<Comment | undefined> {
     const storedComments = this.getCommentsFromSessionStorage();
     return iif(
       () => !!storedComments.length,
-      of(storedComments.find((comment) => comment.id === id)),
-      this.http.get<Comment>(`${this.baseUrl}/comments/${id}`)
+      of(storedComments.find((comment) => comment.id === commentId)),
+      this.http.get<Comment>(`${this.baseUrl}/comments/${commentId}`)
     );
   }
 
@@ -63,14 +63,23 @@ export class CommentService {
     return of<Comment>(body);
   }
 
-  public deleteComment(id: number): Observable<number> {
+  public deleteComment(commentId: number): Observable<number> {
     const storedComments = this.getCommentsFromSessionStorage();
     const indexToEdit = storedComments.findIndex(
-      (comment) => comment.id === id
+      (comment) => comment.id === commentId
     );
     storedComments.splice(indexToEdit, 1);
     this.setCommentsToSessionStorage(storedComments);
-    return of(id);
+    return of(commentId);
+  }
+
+  public getPostComments(postId: number): Observable<Comment[]> {
+    const storedComments = this.getCommentsFromSessionStorage();
+    return iif(
+      () => !!storedComments.length,
+      of(storedComments.filter((comment) => comment.postId === postId)),
+      this.http.get<Comment[]>(`${this.baseUrl}/post/${postId}/comments`)
+    );
   }
 
   private getCommentsFromSessionStorage(): Comment[] {
