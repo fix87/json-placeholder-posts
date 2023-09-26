@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12text-center">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row class="d-flex justify-content-center">
+          <a mat-button routerLink="/"><h2>JSONPlaceholder</h2></a>
+        </mat-toolbar-row>
+        <mat-toolbar-row class="d-flex justify-content-between">
+          <a
+            mat-button
+            routerLink="/users"
+            routerLinkActive="text-decoration-underline"
+            >Users</a
+          >
+          <a
+            mat-button
+            routerLink="/posts"
+            routerLinkActive="text-decoration-underline"
+            >Posts</a
+          >
+          <a
+            mat-button
+            routerLink="/comments"
+            routerLinkActive="text-decoration-underline"
+            >Comments</a
+          >
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
