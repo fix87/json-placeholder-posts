@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 // Libraries
 import { Observable, iif, of, tap } from 'rxjs';
 
+// Services
+import { SessionStorageService } from './session-storage.service';
+
 // Models
 import { Post } from '../models';
 
@@ -17,21 +20,24 @@ import { environment } from '../../environments/environment';
 export class PostService {
   private baseUrl = environment.baseUrl;
 
-  public constructor(private http: HttpClient) {}
+  public constructor(
+    private http: HttpClient,
+    private sessionStorage: SessionStorageService
+  ) {}
 
   public getPosts(): Observable<Post[]> {
-    const storedPosts = this.getPostsFromSessionStorage();
+    const storedPosts = this.sessionStorage.get<Post[]>('posts');
     return iif(
       () => !!storedPosts.length,
       of(storedPosts),
       this.http
         .get<Post[]>(`${this.baseUrl}/posts`)
-        .pipe(tap((posts) => this.setPostsToSessionStorage(posts)))
+        .pipe(tap((posts) => this.sessionStorage.set<Post[]>('posts', posts)))
     );
   }
 
   public getPost(id: number): Observable<Post | undefined> {
-    const storedPosts = this.getPostsFromSessionStorage();
+    const storedPosts = this.sessionStorage.get<Post[]>('posts');
     return iif(
       () => !!storedPosts.length,
       of(storedPosts.find((post) => post.id === id)),
@@ -40,7 +46,7 @@ export class PostService {
   }
 
   public addPost(newPost: Post): Observable<Post> {
-    let storedPosts = this.getPostsFromSessionStorage();
+    let storedPosts = this.sessionStorage.get<Post[]>('posts');
     const greaterStoredId = this.getLastInsertedId();
     storedPosts = [
       ...storedPosts,
@@ -49,42 +55,29 @@ export class PostService {
         id: greaterStoredId + 1,
       },
     ];
-    this.setPostsToSessionStorage(storedPosts);
+    this.sessionStorage.set<Post[]>('posts', storedPosts);
     return of<Post>(newPost);
   }
 
   public editPost(body: Post): Observable<Post> {
-    const storedPosts = this.getPostsFromSessionStorage();
+    const storedPosts = this.sessionStorage.get<Post[]>('posts');
     const indexToEdit = storedPosts.findIndex((post) => post.id === body.id);
     storedPosts[indexToEdit] = body;
-    this.setPostsToSessionStorage(storedPosts);
+    this.sessionStorage.set<Post[]>('posts', storedPosts);
     return of<Post>(body);
   }
 
   public deletePost(id: number): Observable<number> {
-    const storedPosts = this.getPostsFromSessionStorage();
+    const storedPosts = this.sessionStorage.get<Post[]>('posts');
     const indexToEdit = storedPosts.findIndex((post) => post.id === id);
     storedPosts.splice(indexToEdit, 1);
-    this.setPostsToSessionStorage(storedPosts);
+    this.sessionStorage.set<Post[]>('posts', storedPosts);
     return of(id);
-  }
-
-  private getPostsFromSessionStorage(): Post[] {
-    let posts: Post[] = [];
-    const storedPosts = sessionStorage.getItem('posts');
-    if (storedPosts) {
-      posts = JSON.parse(storedPosts);
-    }
-    return posts;
-  }
-
-  private setPostsToSessionStorage(posts: Post[]): void {
-    sessionStorage.setItem('posts', JSON.stringify(posts));
   }
 
   private getLastInsertedId(): number {
     let greaterId = 0;
-    const storedPosts = this.getPostsFromSessionStorage();
+    const storedPosts = this.sessionStorage.get<Post[]>('posts');
     if (storedPosts) {
       const storedIds = storedPosts.map((post) => post.id);
       greaterId = Math.max(...storedIds);

@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 // Libraries
 import { Observable, iif, of, tap } from 'rxjs';
 
+// Services
+import { SessionStorageService } from './session-storage.service';
+
 // Models
 import { User } from '../models';
 
@@ -17,21 +20,24 @@ import { environment } from '../../environments/environment';
 export class UserService {
   private baseUrl = environment.baseUrl;
 
-  public constructor(private http: HttpClient) {}
+  public constructor(
+    private http: HttpClient,
+    private sessionStorage: SessionStorageService
+  ) {}
 
   public getUsers(): Observable<User[]> {
-    const storedUsers = this.getUsersFromSessionStorage();
+    const storedUsers = this.sessionStorage.get<User[]>('users');
     return iif(
       () => !!storedUsers.length,
       of(storedUsers),
       this.http
         .get<User[]>(`${this.baseUrl}/users`)
-        .pipe(tap((users) => this.setUsersToSessionStorage(users)))
+        .pipe(tap((users) => this.sessionStorage.set<User[]>('users', users)))
     );
   }
 
   public getUser(id: number): Observable<User | undefined> {
-    const storedUsers = this.getUsersFromSessionStorage();
+    const storedUsers = this.sessionStorage.get<User[]>('users');
     return iif(
       () => !!storedUsers.length,
       of(storedUsers.find((user) => user.id === id)),
@@ -40,7 +46,7 @@ export class UserService {
   }
 
   public addUser(newUser: User): Observable<User> {
-    let storedUsers = this.getUsersFromSessionStorage();
+    let storedUsers = this.sessionStorage.get<User[]>('users');
     const greaterStoredId = this.getLastInsertedId();
     storedUsers = [
       ...storedUsers,
@@ -49,42 +55,29 @@ export class UserService {
         id: greaterStoredId + 1,
       },
     ];
-    this.setUsersToSessionStorage(storedUsers);
+    this.sessionStorage.set<User[]>('users', storedUsers);
     return of<User>(newUser);
   }
 
   public editUser(body: User): Observable<User> {
-    const storedUsers = this.getUsersFromSessionStorage();
+    const storedUsers = this.sessionStorage.get<User[]>('users');
     const indexToEdit = storedUsers.findIndex((user) => user.id === body.id);
     storedUsers[indexToEdit] = body;
-    this.setUsersToSessionStorage(storedUsers);
+    this.sessionStorage.set<User[]>('users', storedUsers);
     return of<User>(body);
   }
 
   public deleteUser(id: number): Observable<number> {
-    const storedUsers = this.getUsersFromSessionStorage();
+    const storedUsers = this.sessionStorage.get<User[]>('users');
     const indexToEdit = storedUsers.findIndex((user) => user.id === id);
     storedUsers.splice(indexToEdit, 1);
-    this.setUsersToSessionStorage(storedUsers);
+    this.sessionStorage.set<User[]>('users', storedUsers);
     return of(id);
-  }
-
-  private getUsersFromSessionStorage(): User[] {
-    let users: User[] = [];
-    const storedUsers = sessionStorage.getItem('users');
-    if (storedUsers) {
-      users = JSON.parse(storedUsers);
-    }
-    return users;
-  }
-
-  private setUsersToSessionStorage(users: User[]): void {
-    sessionStorage.setItem('users', JSON.stringify(users));
   }
 
   private getLastInsertedId(): number {
     let greaterId = 0;
-    const storedUsers = this.getUsersFromSessionStorage();
+    const storedUsers = this.sessionStorage.get<User[]>('users');
     if (storedUsers) {
       const storedIds = storedUsers.map((user) => user.id);
       greaterId = Math.max(...storedIds);

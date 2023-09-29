@@ -6,10 +6,23 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule, MatButtonModule, MatCardModule, MatToolbarModule],
-  exports: [CommonModule, MatButtonModule, MatCardModule, MatToolbarModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatDividerModule,
+  ],
+  exports: [
+    CommonModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatDividerModule,
+  ],
 })
 export class AngularMaterialModule {}

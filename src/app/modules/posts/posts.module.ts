@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 
 // Modules
 import { PostsRoutingModule } from './posts-routing.module';
+import { AngularMaterialModule } from 'src/app/shared';
 
 // Components
 import { PostsComponent } from './posts.component';
-import { AngularMaterialModule } from 'src/app/shared';
+import { PostComponent } from './components/post/post.component';
 
 @NgModule({
-  declarations: [PostsComponent],
+  declarations: [PostsComponent, PostComponent],
   imports: [CommonModule, PostsRoutingModule, AngularMaterialModule],
 })
 export class PostsModule {}
