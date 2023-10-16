@@ -1,6 +1,7 @@
-export interface Post {
+import { BaseEntity } from './base-entity';
+
+export interface Post extends BaseEntity {
   userId: number;
-  id: number;
   title: string;
   body: string;
 }
