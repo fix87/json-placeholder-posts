@@ -7,6 +7,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [],
@@ -16,6 +18,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatToolbarModule,
     MatDividerModule,
+    MatProgressBarModule,
+    MatBadgeModule,
   ],
   exports: [
     CommonModule,
@@ -23,6 +27,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatCardModule,
     MatToolbarModule,
     MatDividerModule,
+    MatProgressBarModule,
+    MatBadgeModule,
   ],
 })
 export class AngularMaterialModule {}

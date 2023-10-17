@@ -23,11 +23,11 @@ export class PostService {
     return this.http.get<Post[]>(`${this.baseUrl}/posts`);
   }
 
-  public getPost(id: number): Observable<Post> {
+  public getPost(id: string): Observable<Post> {
     return this.http.get<Post>(`${this.baseUrl}/posts/${id}`);
   }
 
-  public getPostComments(id: number): Observable<Comment[]> {
+  public getPostComments(id: string): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${this.baseUrl}/posts/${id}/comments`);
   }
 }
