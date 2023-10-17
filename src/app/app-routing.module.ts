@@ -11,24 +11,22 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () =>
-      import('./modules/home/home.module').then((m) => m.HomeModule),
+      import('./views/home/home.module').then((m) => m.HomeModule),
   },
   {
     path: 'users',
     loadChildren: () =>
-      import('./modules/users/users.module').then((m) => m.UsersModule),
+      import('./views/users/users.module').then((m) => m.UsersModule),
   },
   {
     path: 'posts',
     loadChildren: () =>
-      import('./modules/posts/posts.module').then((m) => m.PostsModule),
+      import('./views/posts/posts.module').then((m) => m.PostsModule),
   },
   {
     path: 'comments',
     loadChildren: () =>
-      import('./modules/comments/comments.module').then(
-        (m) => m.CommentsModule
-      ),
+      import('./views/comments/comments.module').then((m) => m.CommentsModule),
   },
   {
     path: '**',

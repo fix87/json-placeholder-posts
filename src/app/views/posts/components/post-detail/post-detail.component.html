@@ -1,0 +1,35 @@
+<div class="d-flex justify-content-center mt-3">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <ng-container *ngIf="!isLoading">
+      <mat-card class="shadow-none">
+        <ng-container *ngIf="user && post">
+          <mat-card-header>
+            <mat-card-title>
+              {{ post.title }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            {{ post.body }}
+            <div class="d-flex justify-content-end">
+              <small
+                ><a [routerLink]="['/users', user.id]">{{
+                  user.name
+                }}</a></small
+              >
+            </div>
+          </mat-card-content>
+        </ng-container>
+      </mat-card>
+      <h2 class="mt-4">
+        <span [matBadge]="comments.length" matBadgeOverlap="false"
+          >Comments</span
+        >
+      </h2>
+      <app-comment
+        *ngFor="let comment of comments"
+        [comment]="comment"
+      ></app-comment>
+    </ng-container>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
