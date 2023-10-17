@@ -4,4 +4,3 @@ export * from './company';
 export * from './geo';
 export * from './post';
 export * from './user';
-export * from './base-entity';

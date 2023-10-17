@@ -1,6 +1,5 @@
-import { BaseEntity } from './base-entity';
-
-export interface Comment extends BaseEntity {
+export interface Comment {
+  id: number;
   postId: number;
   name: string;
   email: string;
