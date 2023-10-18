@@ -5,7 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 // Components
 import { CommentsComponent } from './comments.component';
 
-const routes: Routes = [{ path: '', component: CommentsComponent }];
+const routes: Routes = [
+  {
+    path: '',
+    component: CommentsComponent,
+    children: [],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

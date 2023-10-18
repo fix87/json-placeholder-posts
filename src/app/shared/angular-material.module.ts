@@ -9,6 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [],
@@ -20,6 +22,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatDividerModule,
     MatProgressBarModule,
     MatBadgeModule,
+    MatListModule,
+    MatIconModule,
   ],
   exports: [
     CommonModule,
@@ -29,6 +33,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     MatDividerModule,
     MatProgressBarModule,
     MatBadgeModule,
+    MatListModule,
+    MatIconModule,
   ],
 })
 export class AngularMaterialModule {}
