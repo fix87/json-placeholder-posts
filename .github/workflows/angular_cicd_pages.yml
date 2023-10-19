@@ -32,6 +32,8 @@ jobs:
         run: npm run build:github --if-present
       - name: Create 404.html page
         run: cp ./dist/json-placeholder-posts/index.html ./dist/json-placeholder-posts/404.html
+      - name: List files
+        run: ls
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
