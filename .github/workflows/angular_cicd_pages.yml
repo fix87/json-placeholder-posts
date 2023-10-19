@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Build
-      run: npm run ng "build --output-path=docs --base-href=/json-placeholder-posts/" --if-present
+      run: npm run build --if-present
     - name: Listing root directories
       run: ls
     - name: Create 404.html page
