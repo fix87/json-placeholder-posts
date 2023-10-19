@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "json-placeholder": {
+    "json-placeholder-posts": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -39,7 +39,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/json-placeholder",
+            "outputPath": "dist/json-placeholder-posts",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -94,10 +94,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "json-placeholder:build:production"
+              "browserTarget": "json-placeholder-posts:build:production"
             },
             "development": {
-              "browserTarget": "json-placeholder:build:development"
+              "browserTarget": "json-placeholder-posts:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,7 +105,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "json-placeholder:build"
+            "browserTarget": "json-placeholder-posts:build"
           }
         },
         "test": {
