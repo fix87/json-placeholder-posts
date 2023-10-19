@@ -32,4 +32,4 @@ jobs:
     - name: Build
       run: npm run ng build --output-path=docs --base-href=/json-placeholder-posts/ --if-present
     - name: Create 404.html page
-      run: cp docs/index.html docs/404.html
+      run: cp ./docs/index.html ./docs/404.html
