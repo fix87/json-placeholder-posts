@@ -33,7 +33,7 @@ jobs:
       - name: Create 404.html page
         run: cp ./dist/json-placeholder-posts/index.html ./dist/json-placeholder-posts/404.html
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@4
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: json-placeholder-posts/dits/json-placeholder-posts
