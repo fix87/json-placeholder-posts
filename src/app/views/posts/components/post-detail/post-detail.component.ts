@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 // Libraries
-import { finalize, forkJoin, switchMap, tap } from 'rxjs';
+import { finalize, forkJoin, switchMap } from 'rxjs';
 
 // Services
 import { PostService, UserService } from 'src/app/services';
@@ -17,10 +17,10 @@ import { Comment, Post, User } from 'src/app/models';
   styleUrls: ['./post-detail.component.scss'],
 })
 export class PostDetailComponent implements OnInit {
+  private postId: string;
   public post = {} as Post;
   public comments: Comment[] = [];
   public user = {} as User;
-  public postId: string;
   public isLoading = true;
 
   public constructor(
@@ -28,7 +28,7 @@ export class PostDetailComponent implements OnInit {
     private postService: PostService,
     private userService: UserService
   ) {
-    this.postId = this.activatedRoute.snapshot.params['id'];
+    this.postId = this.activatedRoute.snapshot.params['postId'];
   }
 
   public ngOnInit(): void {
@@ -36,15 +36,12 @@ export class PostDetailComponent implements OnInit {
       this.postService.getPost(this.postId).pipe(
         switchMap((post) => {
           this.post = post;
-          return this.userService.getUser(this.post.userId);
+          return this.userService.getUser(this.post.userId.toString());
         })
       ),
       this.postService.getPostComments(this.postId),
     ])
       .pipe(finalize(() => (this.isLoading = false)))
-      .subscribe((data) => {
-        this.user = data[0];
-        this.comments = data[1];
-      });
+      .subscribe((data) => ([this.user, this.comments] = data));
   }
 }

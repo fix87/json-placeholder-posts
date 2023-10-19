@@ -23,11 +23,11 @@ export class UserService {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
 
-  public getUser(id: number): Observable<User> {
+  public getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/users/${id}`);
   }
 
-  public getUserPosts(id: number): Observable<Post[]> {
+  public getUserPosts(id: string): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.baseUrl}/users/${id}/posts`);
   }
 }
