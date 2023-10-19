@@ -24,18 +24,17 @@ const routes: Routes = [
       import('./views/posts/posts.module').then((m) => m.PostsModule),
   },
   {
-    path: 'comments',
-    loadChildren: () =>
-      import('./views/comments/comments.module').then((m) => m.CommentsModule),
-  },
-  {
     path: '**',
     redirectTo: '',
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      bindToComponentInputs: true,
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

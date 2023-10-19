@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+$my-palette: mat.define-palette(mat.$indigo-palette);
+
+.avatar {
+  background: mat.get-color-from-palette($my-palette);
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  span {
+    font-size: 24px;
+    color: white;
+  }
+}

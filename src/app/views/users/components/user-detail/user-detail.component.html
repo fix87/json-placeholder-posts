@@ -1,1 +1,49 @@
-<p>user-detail works!</p>
+<div class="d-flex justify-content-center mt-3">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
+    <mat-card *ngIf="user$ | async as user; else loading">
+      <mat-card-content>
+        <div class="row mt-3">
+          <div class="col-12 d-flex flex-column align-items-center">
+            <div
+              class="avatar d-flex justify-content-center align-items-center"
+            >
+              <span>{{ getInitials(user.name) }}</span>
+            </div>
+            <span class="fs-4 mt-3">{{ user.name }}</span>
+            <span class="mt-1">@{{ user.username }}</span>
+          </div>
+          <div class="col-12 mt-5 d-flex align-items-center">
+            <mat-icon>call</mat-icon>
+            <span class="ms-2">{{ user.phone }}</span>
+          </div>
+          <div class="col-12 mt-3 d-flex align-items-center">
+            <mat-icon>home</mat-icon>
+            <span class="ms-2"
+              >{{ user.address.street }}, {{ user.address.zipcode }}
+              {{ user.address.city }}
+            </span>
+          </div>
+          <div class="col-12 mt-3 d-flex align-items-center">
+            <mat-icon>location_on</mat-icon>
+            <span class="ms-2"
+              >{{ user.address.geo.lat }}, {{ user.address.geo.lng }}
+            </span>
+          </div>
+          <div class="col-12 mt-3 d-flex align-items-center">
+            <mat-icon>language</mat-icon>
+            <span class="ms-2">
+              <a [href]="'https://' + user.website" target="_blank">{{
+                user.website
+              }}</a>
+            </span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<!-- Loading template -->
+<ng-template #loading>
+  <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+</ng-template>
