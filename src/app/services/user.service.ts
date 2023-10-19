@@ -3,10 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 // Libraries
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 
 // Models
-import { User } from '../models';
+import { Post, User } from '../models';
 
 // Environment
 import { environment } from '../../environments/environment';
@@ -16,25 +16,18 @@ import { environment } from '../../environments/environment';
 })
 export class UserService {
   private baseUrl = environment.baseUrl;
+
   public constructor(private http: HttpClient) {}
 
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
 
-  public getUser(id: number): Observable<User> {
+  public getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/users/${id}`);
   }
 
-  public addUser(body: User): Observable<User> {
-    return of<User>(body);
-  }
-
-  public editUser(body: User): Observable<User> {
-    return of<User>(body);
-  }
-
-  public deleteUser(id: number): Observable<number> {
-    return of(id);
+  public getUserPosts(id: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.baseUrl}/users/${id}/posts`);
   }
 }
