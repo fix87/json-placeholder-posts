@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-path=docs --base-href=/json-placeholder-posts/",
+    "build": "ng build",
+    "build:github": "ng build --base-href=/json-placeholder-posts/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint"
