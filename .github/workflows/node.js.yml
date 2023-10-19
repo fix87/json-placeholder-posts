@@ -27,7 +27,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install
+    #- name: Install
     - run: npm ci
     #- name: Build
     #- run: npm run ng build --output-path docs --base-href /json-placeholder-posts/ --if-present
