@@ -5,13 +5,12 @@ name: CI/CD for Angular apps on Github Pages
 
 on:
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -20,18 +19,21 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Install dependencies
-      run: npm ci
-    - name: Build
-      run: npm run build --if-present
-    - name: Listing root directories
-      run: ls
-    - name: Create 404.html page
-      run: cp ./docs/index.html ./docs/404.html
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build:github --if-present
+      - name: Create 404.html page
+        run: cp ./dist/json-placeholder-posts/index.html ./dist/json-placeholder-posts/404.html
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4
+        with:
+          branch: gh-pages
+          folder: json-placeholder-posts/dits/json-placeholder-posts
