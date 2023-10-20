@@ -25,3 +25,5 @@ jobs:
         with:
           branch: master
           folder: dist/json-placeholder-posts
+
+permissions: write-all
