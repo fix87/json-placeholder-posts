@@ -24,4 +24,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:
           branch: master
-          folder: json_placeholder_posts/dist/json_placeholder_posts
+          folder: json-placeholder-posts/dist/json-placeholder-posts
