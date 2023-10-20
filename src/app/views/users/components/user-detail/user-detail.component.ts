@@ -11,6 +11,9 @@ import { UserService } from 'src/app/services';
 // Models
 import { Post, User } from 'src/app/models';
 
+/**
+ * Model handling directly through template
+ */
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',

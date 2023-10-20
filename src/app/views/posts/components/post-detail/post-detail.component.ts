@@ -11,6 +11,9 @@ import { PostService, UserService } from 'src/app/services';
 // Models
 import { Comment, Post, User } from 'src/app/models';
 
+/**
+ * Model handling through Typescript class
+ */
 @Component({
   selector: 'app-post-detail',
   templateUrl: './post-detail.component.html',
