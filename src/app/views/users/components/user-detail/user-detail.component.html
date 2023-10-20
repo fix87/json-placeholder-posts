@@ -1,45 +1,66 @@
 <div class="d-flex justify-content-center mt-3">
   <div class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5">
-    <mat-card *ngIf="user$ | async as user; else loading">
-      <mat-card-content>
-        <div class="row mt-3">
-          <div class="col-12 d-flex flex-column align-items-center">
-            <div
-              class="avatar d-flex justify-content-center align-items-center"
-            >
-              <span>{{ getInitials(user.name) }}</span>
+    <ng-container *ngIf="data$ | async as data; else loading">
+      <mat-card>
+        <mat-card-content>
+          <div class="row mt-3">
+            <div class="col-12 d-flex flex-column align-items-center">
+              <div
+                class="avatar d-flex justify-content-center align-items-center"
+              >
+                <span>{{ getInitials(data.user.name) }}</span>
+              </div>
+              <span class="fs-4 mt-3">{{ data.user.name }}</span>
+              <span class="mt-1">@{{ data.user.username }}</span>
             </div>
-            <span class="fs-4 mt-3">{{ user.name }}</span>
-            <span class="mt-1">@{{ user.username }}</span>
+            <div class="col-12 mt-5 d-flex align-items-center">
+              <mat-icon>call</mat-icon>
+              <span class="ms-2">{{ data.user.phone }}</span>
+            </div>
+            <div class="col-12 mt-3 d-flex align-items-center">
+              <mat-icon>home</mat-icon>
+              <span class="ms-2"
+                >{{ data.user.address.street }}, {{ data.user.address.zipcode }}
+                {{ data.user.address.city }}
+              </span>
+            </div>
+            <div class="col-12 mt-3 d-flex align-items-center">
+              <mat-icon>location_on</mat-icon>
+              <span class="ms-2"
+                >{{ data.user.address.geo.lat }},
+                {{ data.user.address.geo.lng }}
+              </span>
+            </div>
+            <div class="col-12 mt-3 d-flex align-items-center">
+              <mat-icon>language</mat-icon>
+              <span class="ms-2">
+                <a [href]="'https://' + data.user.website" target="_blank">{{
+                  data.user.website
+                }}</a>
+              </span>
+            </div>
           </div>
-          <div class="col-12 mt-5 d-flex align-items-center">
-            <mat-icon>call</mat-icon>
-            <span class="ms-2">{{ user.phone }}</span>
-          </div>
-          <div class="col-12 mt-3 d-flex align-items-center">
-            <mat-icon>home</mat-icon>
-            <span class="ms-2"
-              >{{ user.address.street }}, {{ user.address.zipcode }}
-              {{ user.address.city }}
-            </span>
-          </div>
-          <div class="col-12 mt-3 d-flex align-items-center">
-            <mat-icon>location_on</mat-icon>
-            <span class="ms-2"
-              >{{ user.address.geo.lat }}, {{ user.address.geo.lng }}
-            </span>
-          </div>
-          <div class="col-12 mt-3 d-flex align-items-center">
-            <mat-icon>language</mat-icon>
-            <span class="ms-2">
-              <a [href]="'https://' + user.website" target="_blank">{{
-                user.website
-              }}</a>
-            </span>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+        </mat-card-content>
+      </mat-card>
+      <h2 class="mt-4">
+        <span [matBadge]="data.posts.length" matBadgeOverlap="false"
+          >Posts</span
+        >
+      </h2>
+      <mat-card
+        *ngFor="let post of data.posts"
+        class="cursor-pointer mt-3"
+        [routerLink]="['/posts', post.id]"
+      >
+        <mat-card-header>
+          <mat-card-title>{{ post.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-divider class="my-3"></mat-divider>
+        <mat-card-content>
+          {{ post.body }}
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
   </div>
 </div>
 
