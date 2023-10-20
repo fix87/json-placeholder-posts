@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4.1.1
 
       - name: Install and build
-        run: npm install && npm run build:github && cp ./dist/json_placeholder_posts/index.html ./dist/json_placeholder_posts/404.html
+        run: npm install && npm run build:github && cp ./dist/json-placeholder-posts/index.html ./dist/json-placeholder-posts/404.html
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.4.3
