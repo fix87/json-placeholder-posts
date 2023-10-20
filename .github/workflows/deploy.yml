@@ -15,14 +15,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.1
+        uses: actions/checkout@v4.x
 
       - name: Install and build
         working-directory: ./json_placeholder_posts
         run: npm install && npm run build:github && cp dist/json_placeholder_posts/index.html dist/json_placeholder_posts/404.html
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.4.3
+        uses: JamesIves/github-pages-deploy-action@v4.x
         with:
           branch: master
           folder: json_placeholder_posts/dist/json_placeholder_posts
